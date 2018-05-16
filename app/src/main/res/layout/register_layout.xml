@@ -1,95 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:padding="15dip"
+        android:layout_margin="15dip">
+        <!--身份选择-->
         <TextView
             android:id="@+id/register_identity"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:text="Identity"
-            android:textSize="20sp" />
-        <RadioGroup
-            android:id="@+id/register_identity_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical">
+            android:layout_alignParentTop="true"
+            android:text="身份"
+            android:textSize="19sp"/>
+        <RadioGroup
+            android:id="@+id/register_identity_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_identity"
+            android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/register_student"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Student" />
+                android:text="学生"
+                android:textSize="19sp"/>
             <RadioButton
                 android:id="@+id/register_teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Teacher" />
+                android:text="老师"
+                android:textSize="19sp"/>
         </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-        <LinearLayout
-            android:orientation="horizontal"
+        <!--学工号-->
+        <TextView
+            android:id="@+id/register_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_identity_group"
+            android:text="学工号"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/register_id_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/register_id"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="ID"
-                android:textSize="20sp" />
-            <EditText
-                android:id="@+id/register_id_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Input your Student ID or Teacher ID"
-                android:maxLines="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_id"
+            android:maxLines="1"
+            android:inputType="number"/>
+        <!--用户名-->
+        <TextView
+            android:id="@+id/register_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_id_input"
+            android:text="用户名"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/register_username_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/register_password"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="PW"
-                android:textSize="20sp" />
-            <EditText
-                android:id="@+id/register_pw_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Input your password"
-                android:maxLines="1" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/register_register"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="50dp"
-        android:text="Register and Login"
-        android:textAllCaps="false"/>
-
-</RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_username"
+            android:maxLines="1"
+            android:inputType="text"/>
+        <!--密码-->
+        <TextView
+            android:id="@+id/register_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_username_input"
+            android:text="密码"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/register_pw_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_password"
+            android:maxLines="1"
+            android:inputType="text"/>
+        <!--手机-->
+        <TextView
+            android:id="@+id/register_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_pw_input"
+            android:text="手机"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/register_phone_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_phone"
+            android:maxLines="1"
+            android:inputType="phone"/>
+        <!--注册-->
+        <Button
+            android:id="@+id/register_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#4FC1FB"
+            android:text="注册并登录"
+            android:textSize="21sp"
+            android:textColor="#ffffff"/>
+    </RelativeLayout>
+</LinearLayout>
