@@ -134,15 +134,21 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
                                     //更新该记录的UI
                                     notifyItemChanged(position,1);
                                 }
+                                else{
+                                    applying.dismiss();
+                                    Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else{
+                                applying.dismiss();
                                 Toast.makeText(context,"请求失败",Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<BasicCallModel<ApplyRes>> call, Throwable t) {
-
+                            applying.dismiss();
+                            Toast.makeText(context,"请求失败",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
