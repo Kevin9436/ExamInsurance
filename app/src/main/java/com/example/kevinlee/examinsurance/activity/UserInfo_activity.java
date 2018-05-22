@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class UserInfo_activity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class UserInfo_activity extends AppCompatActivity {
     Button user_info_phone_edit;
     Button user_info_logout;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_layout);
         ActionBar actionBar=getSupportActionBar();

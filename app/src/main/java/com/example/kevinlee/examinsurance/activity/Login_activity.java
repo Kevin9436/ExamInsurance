@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +16,11 @@ import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.connectServer.bean.LoginReq;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.model.Student;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
+import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,8 +37,9 @@ public class Login_activity extends AppCompatActivity{
     private ProgressDialog logining;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        Logger.d("Start login activity.");
         setContentView(R.layout.login_layout);
         login = (Button) findViewById(R.id.login_login);
         id = (EditText) findViewById(R.id.login_id_input);
@@ -69,7 +73,9 @@ public class Login_activity extends AppCompatActivity{
         logining = ProgressDialog.show(Login_activity.this,
                 "注册中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Login_activity.this)){
+            Logger.d("Network is connected.");
             if(req.getIdentity()==1){
+                Logger.d("Student login.");
                 Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().loginReq(req.getId(),req.getPw());
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
@@ -80,19 +86,15 @@ public class Login_activity extends AppCompatActivity{
                                 SharedData.student=response.body().data;
                                 SharedData.getCourseList(Login_activity.this);
                                 logining.dismiss();
-                                Toast.makeText(Login_activity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login_activity.this, ShopPage_activity.class);
                                 startActivity(intent);
                                 finish();
                             }
                             //账号或密码错误
-                            else if(response.body().errno==1){
-                                logining.dismiss();
-                                Toast.makeText(Login_activity.this,"账号或密码错误",Toast.LENGTH_SHORT).show();
-                            }
                             else{
                                 logining.dismiss();
-                                Toast.makeText(Login_activity.this,"请求错误",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
                             }
                         }
                         RequestBuilder.clear();
@@ -102,6 +104,7 @@ public class Login_activity extends AppCompatActivity{
                     public void onFailure(Call<BasicCallModel<Student>> call, Throwable t) {
                         logining.dismiss();
                         Toast.makeText(Login_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        Logger.d(t);
                     }
                 });
             }

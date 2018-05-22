@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.kevinlee.examinsurance.R;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 
-public class Entrance_activity extends AppCompatActivity {
+public class Entrance_activity extends BasicActivity {
     private Button login;
     private Button register;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initActivity() {
         setContentView(R.layout.entrance_layout);
         login = (Button) findViewById(R.id.entrance_login);
         register = (Button) findViewById(R.id.entrance_register);

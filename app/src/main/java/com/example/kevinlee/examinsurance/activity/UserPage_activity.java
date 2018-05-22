@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.adapter.UserPageColumnAdapter;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class UserPage_activity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class UserPage_activity extends AppCompatActivity {
     Button back;
     RecyclerView recyclerView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_page_layout);
         ActionBar actionBar = getSupportActionBar();

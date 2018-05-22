@@ -86,7 +86,10 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        if(orderList==null)
+            return 0;
+        else
+            return orderList.size();
     }
 
     private void apply_action(final Context context, final int position){

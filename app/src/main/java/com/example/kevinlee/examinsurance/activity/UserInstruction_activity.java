@@ -8,13 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 
 public class UserInstruction_activity extends AppCompatActivity {
     TextView title;
     TextView instruction;
     Button back;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_instruction_layout);
         ActionBar actionBar=getSupportActionBar();

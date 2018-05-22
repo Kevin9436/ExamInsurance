@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.adapter.CourseAdapter;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class ShopPage_activity extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class ShopPage_activity extends AppCompatActivity {
     ProgressDialog refreshing;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_page_layout);
         getSupportActionBar().hide();

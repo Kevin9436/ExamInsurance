@@ -15,6 +15,7 @@ import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.connectServer.bean.RegisterReq;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.model.Student;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
@@ -38,7 +39,7 @@ public class Register_activity extends AppCompatActivity {
     private ProgressDialog registering;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
         register = (Button) findViewById(R.id.register_register);

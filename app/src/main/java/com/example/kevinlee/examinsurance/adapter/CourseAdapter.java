@@ -96,7 +96,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return courseList.size();
+        if(courseList==null)
+            return 0;
+        else
+            return courseList.size();
     }
 
     private void purchase_action(int position, final Context context, final int type){

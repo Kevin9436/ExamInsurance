@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kevinlee.examinsurance.R;
+import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class UserAccount_activity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class UserAccount_activity extends AppCompatActivity {
     TextView account;
     Button charge;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_account_layout);
         ActionBar actionBar=getSupportActionBar();
