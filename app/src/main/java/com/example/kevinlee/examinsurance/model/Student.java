@@ -38,6 +38,17 @@ public class Student {
         else
             return false;
     }
+
+    //检查购买是否重复
+    public boolean check_item(String course_id){
+        for(int i=0;i<history.size();i++){
+            if(history.get(i).getId().equals(course_id)&&history.get(i).getStatus()==0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //购买增加记录
     public void add_item(Order course){
         if(history==null) {

@@ -22,6 +22,7 @@ import com.example.kevinlee.examinsurance.model.Order;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -90,8 +91,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         Course course=courseList.get(position);
         holder.course_title.setText(course.getTitle());
         holder.course_id.setText(course.getId());
-        holder.course_upper.setText(course.getUpper_threshold());
-        holder.course_lower.setText(course.getLower_threshold());
+        holder.course_upper.setText(""+course.getUpper_threshold());//直接将int类型赋值给setText() string类型会报错android.content.res.Resources$NotFoundException: String resource ID
+        holder.course_lower.setText(""+course.getLower_threshold());
     }
 
     @Override
@@ -131,6 +132,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     Toast.makeText(context,"余额不足",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    //封装order
                     Order order = new Order();
                     order.setId(course.getId());
                     order.setTitle(course.getTitle());
@@ -142,44 +144,51 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     else{
                         order.setThreshold(course.getLower_threshold());
                     }
-                    if (!Netutils.isNetworkConnected(context)) {
-                        Toast.makeText(context, "无网络连接", Toast.LENGTH_SHORT).show();
-                    } else {
-                        final ProgressDialog purchasing = ProgressDialog.show(context,
-                                "购买提交中", "请等待", true, false);
-                        //封装购买请求
-                        PurchaseReq req=new PurchaseReq();
-                        req.setStudentId(SharedData.student.getId());
-                        req.setOrder(order);
-                        Gson gson = new Gson();
-                        String route = gson.toJson(req);
-                        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
-                        Call<BasicCallModel<Order>> cb = RequestBuilder.buildRequest().purchaseReq(body);
-                        cb.enqueue(new Callback<BasicCallModel<Order>>() {
-                            @Override
-                            public void onResponse(Call<BasicCallModel<Order>> call, Response<BasicCallModel<Order>> response) {
-                                if (response.raw().code() == 200) {
-                                    if (response.body().errno==0) {
-                                        purchasing.dismiss();
-                                        SharedData.student.add_item(response.body().data);
-                                        SharedData.student.purchase(1);
-                                        Toast.makeText(context, "购买成功", Toast.LENGTH_SHORT).show();
+
+                    //检查是否历史记录中已存在该课程
+                    if(SharedData.student.check_item(order.getId())){
+                        Toast.makeText(context,"已购买过该课程保险",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if (!Netutils.isNetworkConnected(context)) {
+                            Toast.makeText(context, "无网络连接", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            final ProgressDialog purchasing = ProgressDialog.show(context,
+                                    "购买提交中", "请等待", true, false);
+                            //封装购买请求
+                            PurchaseReq req = new PurchaseReq();
+                            req.setStudentId(SharedData.student.getId());
+                            req.setOrder(order);
+                            Gson gson = new Gson();
+                            String route = gson.toJson(req);
+                            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
+                            Call<BasicCallModel<Order>> cb = RequestBuilder.buildRequest().purchaseReq(body);
+                            cb.enqueue(new Callback<BasicCallModel<Order>>() {
+                                @Override
+                                public void onResponse(Call<BasicCallModel<Order>> call, Response<BasicCallModel<Order>> response) {
+                                    if (response.raw().code() == 200) {
+                                        if (response.body().errno == 0) {
+                                            purchasing.dismiss();
+                                            SharedData.student.add_item(response.body().data);
+                                            SharedData.student.purchase(1);
+                                            Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            purchasing.dismiss();
+                                            Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
                                         purchasing.dismiss();
-                                        Toast.makeText(context, "购买失败", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
+                                }
+                                @Override
+                                public void onFailure(Call<BasicCallModel<Order>> call, Throwable t) {
                                     purchasing.dismiss();
                                     Toast.makeText(context, "购买失败", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-
-                            @Override
-                            public void onFailure(Call<BasicCallModel<Order>> call, Throwable t) {
-                                purchasing.dismiss();
-                                Toast.makeText(context, "购买失败", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            });
+                        }
                     }
                 }
             }

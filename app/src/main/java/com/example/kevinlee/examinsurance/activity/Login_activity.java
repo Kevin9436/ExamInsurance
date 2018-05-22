@@ -39,7 +39,6 @@ public class Login_activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Logger.d("Start login activity.");
         setContentView(R.layout.login_layout);
         login = (Button) findViewById(R.id.login_login);
         id = (EditText) findViewById(R.id.login_id_input);
@@ -73,9 +72,7 @@ public class Login_activity extends AppCompatActivity{
         logining = ProgressDialog.show(Login_activity.this,
                 "注册中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Login_activity.this)){
-            Logger.d("Network is connected.");
             if(req.getIdentity()==1){
-                Logger.d("Student login.");
                 Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().loginReq(req.getId(),req.getPw());
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override

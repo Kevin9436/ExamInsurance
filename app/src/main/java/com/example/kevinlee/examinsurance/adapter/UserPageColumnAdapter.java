@@ -18,7 +18,7 @@ import com.example.kevinlee.examinsurance.activity.UserInstruction_activity;
  */
 
 public class UserPageColumnAdapter extends RecyclerView.Adapter<UserPageColumnAdapter.ViewHolder> {
-    private final String[] user_page_column=new String[]{
+    private final String[] text_column=new String[]{
             "个人信息",
             "账户余额",
             "投保记录",
@@ -68,7 +68,7 @@ public class UserPageColumnAdapter extends RecyclerView.Adapter<UserPageColumnAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.user_page_column.setText(position);
+        holder.user_page_column.setText(text_column[position]);
     }
 
     @Override

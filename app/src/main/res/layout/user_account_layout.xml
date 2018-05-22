@@ -12,7 +12,7 @@
         android:layout_marginTop="130dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="余额:0元"
+        android:text="余额: 0元"
         android:textSize="40sp"/>
     <Button
         android:id="@+id/user_charge"

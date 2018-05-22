@@ -109,9 +109,6 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(Netutils.isNetworkConnected(context)){
-                    Toast.makeText(context,"无网络连接",Toast.LENGTH_SHORT).show();
-                }
-                else{
                     final ProgressDialog applying=ProgressDialog.show(context,
                             "申诉中","请等待...",true,false);
                     ApplyReq req=new ApplyReq();
@@ -154,6 +151,9 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
                             Toast.makeText(context,"请求失败",Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+                else{
+                    Toast.makeText(context,"无网络连接",Toast.LENGTH_SHORT).show();
                 }
             }
         });

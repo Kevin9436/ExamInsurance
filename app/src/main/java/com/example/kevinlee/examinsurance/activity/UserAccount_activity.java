@@ -35,7 +35,7 @@ public class UserAccount_activity extends AppCompatActivity {
             }
         });
         account=(TextView) findViewById(R.id.user_account);
-        account.setText("余额："+ SharedData.student.getAccount());
+        account.setText("余额："+ SharedData.student.getAccount()+"元");
         charge=(Button) findViewById(R.id.user_charge);
         charge.setOnClickListener(new View.OnClickListener() {
             @Override
