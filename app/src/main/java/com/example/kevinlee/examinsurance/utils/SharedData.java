@@ -32,7 +32,7 @@ public class SharedData {
                         courseList=response.body().data;
                     }
                     else {
-                        Toast.makeText(context, "获取课程列表失败！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{

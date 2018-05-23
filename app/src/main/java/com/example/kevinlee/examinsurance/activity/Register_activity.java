@@ -89,25 +89,23 @@ public class Register_activity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
                         if(response.raw().code()==200){
-                            //成功注册,准备用户以及课程列表数据
                             if(response.body().errno==0){
                                 SharedData.student=response.body().data;
                                 SharedData.getCourseList(Register_activity.this);
                                 registering.dismiss();
-                                Toast.makeText(Register_activity.this,"注册成功！",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
                                 Intent intent=new Intent(Register_activity.this,ShopPage_activity.class);
                                 startActivity(intent);
                                 finish();
                             }
-                            //id已存在
-                            else if(response.body().errno==1){
-                                registering.dismiss();
-                                Toast.makeText(Register_activity.this,"该学号已存在",Toast.LENGTH_SHORT).show();
-                            }
                             else{
                                 registering.dismiss();
-                                Toast.makeText(Register_activity.this,"请求错误",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Register_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
                             }
+                        }
+                        else{
+                            registering.dismiss();
+                            Toast.makeText(Register_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
                         }
                         RequestBuilder.clear();
                     }

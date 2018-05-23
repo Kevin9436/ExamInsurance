@@ -136,7 +136,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
                                 }
                                 else{
                                     applying.dismiss();
-                                    Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else{
@@ -160,7 +160,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
         apply_dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //自动取消对话
+                dialogInterface.cancel();
             }
         });
         apply_dialog.show();
@@ -189,7 +189,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
         check_dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //自动取消对话
+                dialogInterface.cancel();
             }
         });
         check_dialog.show();

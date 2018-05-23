@@ -39,4 +39,16 @@ public interface InterfaceManager {
     @Headers({"Content-type:application/json;charset=utf-8","Accept:application/json"})
     @POST("student/apply")
     Call<BasicCallModel<ApplyRes>> applyReq(@Body RequestBody body);
+
+    @Headers({"Content-type:application/json;charset=utf-8","Accept:application/json"})
+    @POST("student/changeUsername")
+    Call<BasicCallModel<String>> changeUsernameReq(@Body RequestBody body);
+
+    @Headers({"Content-type:application/json;charset=utf-8","Accept:application/json"})
+    @POST("student/changePassword")
+    Call<BasicCallModel<String>> changePasswordReq(@Body RequestBody body);
+
+    @Headers({"Content-type:application/json;charset=utf-8","Accept:application/json"})
+    @POST("student/changePhone")
+    Call<BasicCallModel<String>> changePhoneReq(@Body RequestBody body);
 }

@@ -179,7 +179,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                                         }
                                     } else {
                                         purchasing.dismiss();
-                                        Toast.makeText(context, response.body().msg, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 @Override

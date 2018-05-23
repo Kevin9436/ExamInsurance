@@ -77,10 +77,10 @@ public class Login_activity extends AppCompatActivity{
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
-                        if(response.raw().code()==200){
+                        if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
-                            if(response.body().errno==0){
-                                SharedData.student=response.body().data;
+                            if (response.body().errno == 0) {
+                                SharedData.student = response.body().data;
                                 SharedData.getCourseList(Login_activity.this);
                                 logining.dismiss();
                                 Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
@@ -89,10 +89,13 @@ public class Login_activity extends AppCompatActivity{
                                 finish();
                             }
                             //账号或密码错误
-                            else{
+                            else {
                                 logining.dismiss();
-                                Toast.makeText(Login_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            logining.dismiss();
+                            Toast.makeText(Login_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
                         }
                         RequestBuilder.clear();
                     }
