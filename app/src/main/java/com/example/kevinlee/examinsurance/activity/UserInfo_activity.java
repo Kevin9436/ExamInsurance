@@ -85,7 +85,7 @@ public class UserInfo_activity extends AppCompatActivity {
                 final View v= LayoutInflater.from(UserInfo_activity.this).inflate(R.layout.alertdialog_change_username,null);
                 AlertDialog.Builder changeUsername=new AlertDialog.Builder(UserInfo_activity.this);
                 changeUsername.setView(v);
-                final EditText editUsername=(EditText) findViewById(R.id.change_username);
+                final EditText editUsername=(EditText) v.findViewById(R.id.change_username);
                 changeUsername.setTitle("更改用户名");
                 changeUsername.setCancelable(false);
 
@@ -93,7 +93,7 @@ public class UserInfo_activity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String newUsername=editUsername.getText().toString();
-                        if(newUsername==null){
+                        if(newUsername==null||newUsername.length()<=0){
                             Toast.makeText(view.getContext(),"请输入有效用户名",Toast.LENGTH_SHORT).show();
                         }
                         else{
@@ -117,6 +117,7 @@ public class UserInfo_activity extends AppCompatActivity {
                                         if (response.raw().code() == 200) {
                                             if (response.body().errno == 0) {
                                                 SharedData.student.setUsername(response.body().data);
+                                                user_info_username.setText(SharedData.student.getUsername());
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();
@@ -155,8 +156,8 @@ public class UserInfo_activity extends AppCompatActivity {
                 changePw.setTitle("更改密码");
                 changePw.setView(v);
                 changePw.setCancelable(false);
-                final EditText get_original_pw=(EditText) findViewById(R.id.original_pw);
-                final EditText get_new_pw=(EditText) findViewById(R.id.new_pw);
+                final EditText get_original_pw=(EditText) v.findViewById(R.id.original_pw);
+                final EditText get_new_pw=(EditText) v.findViewById(R.id.new_pw);
 
                 changePw.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -166,7 +167,7 @@ public class UserInfo_activity extends AppCompatActivity {
                         if(!originalPw.equals(SharedData.student.getPassword())){
                             Toast.makeText(view.getContext(),"原密码错误",Toast.LENGTH_SHORT).show();
                         }else{
-                            if(newPw==null){
+                            if(newPw==null||newPw.length()<=0){
                                 Toast.makeText(view.getContext(),"请输入新密码",Toast.LENGTH_SHORT).show();
                             }else{
                                 if(!Netutils.isNetworkConnected(view.getContext())){
@@ -227,7 +228,7 @@ public class UserInfo_activity extends AppCompatActivity {
                 changePhone.setTitle("更改手机号");
                 changePhone.setView(v);
                 changePhone.setCancelable(false);
-                final EditText get_new_phone=(EditText) findViewById(R.id.new_phone);
+                final EditText get_new_phone=(EditText) v.findViewById(R.id.new_phone);
 
                 changePhone.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -256,6 +257,7 @@ public class UserInfo_activity extends AppCompatActivity {
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){
                                                 SharedData.student.setPhone(newPhone);
+                                                user_info_phone.setText(SharedData.student.getPhone());
                                                 Toast.makeText(view.getContext(),response.body().msg,Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();

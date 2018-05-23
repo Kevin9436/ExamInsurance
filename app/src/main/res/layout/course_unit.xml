@@ -1,82 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <!--title & id-->
-    <LinearLayout
-        android:id="@+id/column1"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp">
-        <TextView
-            android:id="@+id/course_title"
-            android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--title & id-->
+        <LinearLayout
+            android:id="@+id/column1"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="数据库"
-            android:textSize="19sp" />
-        <TextView
-            android:id="@+id/course_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="CS002"
-            android:textSize="19sp"/>
-    </LinearLayout>
-    <!--上下限选框-->
-    <RadioGroup
-        android:id="@+id/column2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_toRightOf="@id/column1">
-        <RadioButton
-            android:id="@+id/course_choose_upper"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:id="@+id/course_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="数据库"
+                android:textSize="19sp" />
+            <TextView
+                android:id="@+id/course_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="CS002"
+                android:textSize="19sp"/>
+        </LinearLayout>
+        <!--上下限选框-->
+        <RadioGroup
+            android:id="@+id/column2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="奖励分数:"
-            android:textSize="19sp"/>
-        <RadioButton
-            android:id="@+id/course_choose_lower"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/column1">
+            <RadioButton
+                android:id="@+id/course_choose_upper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="奖励分数:"
+                android:textSize="19sp"/>
+            <RadioButton
+                android:id="@+id/course_choose_lower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="赔偿分数:"
+                android:textSize="19sp"/>
+        </RadioGroup>
+        <!--upper_threshold & lower_threshold-->
+        <LinearLayout
+            android:id="@+id/column3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="赔偿分数:"
-            android:textSize="19sp"/>
-    </RadioGroup>
-    <!--upper_threshold & lower_threshold-->
-    <LinearLayout
-        android:id="@+id/column3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_toRightOf="@id/column2"
-        android:layout_marginLeft="5dp">
-        <TextView
-            android:id="@+id/course_upper"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/column2"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:id="@+id/course_upper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="95"
+                android:textSize="19sp"/>
+            <TextView
+                android:id="@+id/course_lower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="70"
+                android:textSize="19sp"/>
+        </LinearLayout>
+        <!--购买button-->
+        <Button
+            android:id="@+id/course_purchase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="95"
-            android:textSize="19sp"/>
-        <TextView
-            android:id="@+id/course_lower"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="70"
-            android:textSize="19sp"/>
-    </LinearLayout>
-    <!--购买button-->
-    <Button
-        android:id="@+id/course_purchase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="5dp"
-        android:text="购买"
-        android:textSize="16sp"/>
-</RelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="5dp"
+            android:text="购买"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7b7a7a"/>
+</LinearLayout>

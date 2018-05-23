@@ -3,6 +3,7 @@ package com.example.kevinlee.examinsurance.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kevinlee.examinsurance.R;
@@ -27,19 +29,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login_activity extends AppCompatActivity{
-
-    private Button login;
-    private EditText id;
-    private EditText pw;
-    private RadioGroup identity;
-    private RadioButton student;
-    private RadioButton teacher;
-    private ProgressDialog logining;
+    TextView title;
+    Button login;
+    EditText id;
+    EditText pw;
+    RadioGroup identity;
+    RadioButton student;
+    RadioButton teacher;
+    ProgressDialog logining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
+        title = (TextView) findViewById(R.id.title_bar);
+        title.setText("登录");
+
         login = (Button) findViewById(R.id.login_login);
         id = (EditText) findViewById(R.id.login_id_input);
         pw = (EditText) findViewById(R.id.login_pw_input);

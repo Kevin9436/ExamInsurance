@@ -1,21 +1,33 @@
 package com.example.kevinlee.examinsurance.activity;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.model.BasicActivity;
 
-public class Entrance_activity extends BasicActivity {
-    private Button login;
-    private Button register;
+public class Entrance_activity extends AppCompatActivity {
+    TextView title;
+    Button login;
+    Button register;
 
     @Override
-    protected void initActivity() {
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.entrance_layout);
+
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
+        title = (TextView) findViewById(R.id.title_bar) ;
+        title.setText("考试保险");
+
         login = (Button) findViewById(R.id.entrance_login);
         register = (Button) findViewById(R.id.entrance_register);
 

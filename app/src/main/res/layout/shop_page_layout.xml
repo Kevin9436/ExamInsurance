@@ -7,29 +7,37 @@
         android:id="@+id/shop_page_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:background="#4FC1FB">
         <Button
             android:id="@+id/shop_page_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="账户" />
+            android:background="#4FC1FB"
+            android:text="账户"
+            android:textSize="18sp"
+            android:textColor="#ffffff"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
             android:text="课程列表"
-            android:textSize="21sp"/>
+            android:textSize="21sp"
+            android:textColor="#ffffff"/>
         <Button
             android:id="@+id/shop_page_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="登出"/>
+            android:background="#4FC1FB"
+            android:text="登出"
+            android:textSize="19sp"
+            android:textColor="#ffffff"/>
     </LinearLayout>
     <!--课程列表-->
     <android.support.v7.widget.RecyclerView
@@ -44,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#4FC1FB"
         android:text="刷新列表"
-        android:textSize="21sp"/>
+        android:textSize="21sp"
+        android:textColor="#ffffff"/>
 </RelativeLayout>

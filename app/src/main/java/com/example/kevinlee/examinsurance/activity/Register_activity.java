@@ -3,12 +3,14 @@ package com.example.kevinlee.examinsurance.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kevinlee.examinsurance.R;
@@ -21,27 +23,37 @@ import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Register_activity extends AppCompatActivity {
-
-    private Button register;
-    private EditText id;
-    private EditText username;
-    private EditText password;
-    private EditText phone;
-    private RadioGroup identity;
-    private RadioButton student;
-    private RadioButton teacher;
-    private ProgressDialog registering;
+    TextView title;
+    Button register;
+    EditText id;
+    EditText username;
+    EditText password;
+    EditText phone;
+    RadioGroup identity;
+    RadioButton student;
+    RadioButton teacher;
+    ProgressDialog registering;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_layout);
+
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }
+        title = (TextView) findViewById(R.id.title_bar);
+        title.setText("注册");
+
         register = (Button) findViewById(R.id.register_register);
         id = (EditText) findViewById(R.id.register_id_input);
         username = (EditText) findViewById(R.id.register_username_input);

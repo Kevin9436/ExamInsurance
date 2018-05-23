@@ -19,17 +19,14 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.Login_activity"
-            android:label="Login"
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.Register_activity"
-            android:label="Register"
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.ShopPage_activity"
@@ -40,7 +37,7 @@
         <activity android:name=".activity.UserInfo_activity" />
         <activity android:name=".activity.UserAccount_activity" />
         <activity android:name=".activity.UserHistory_activity" />
-        <activity android:name=".activity.UserInstruction_activity"></activity>
+        <activity android:name=".activity.UserInstruction_activity"/>
     </application>
 
 </manifest>
