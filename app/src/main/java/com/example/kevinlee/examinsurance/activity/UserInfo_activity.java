@@ -18,7 +18,6 @@ import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.connectServer.bean.ChangeInfoReq;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
@@ -42,7 +41,7 @@ public class UserInfo_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_info_layout);
+        setContentView(R.layout.layout_user_info);
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
             actionBar.hide();
@@ -57,20 +56,30 @@ public class UserInfo_activity extends AppCompatActivity {
             }
         });
         user_info_id=(TextView) findViewById(R.id.user_info_id);
-        user_info_id.setText(SharedData.student.getId());
         user_info_identity=(TextView) findViewById(R.id.user_info_identity);
-        user_info_identity.setText("学生");
         user_info_username=(TextView) findViewById(R.id.user_info_username);
-        user_info_username.setText(SharedData.student.getUsername());
         user_info_username_edit=(Button) findViewById(R.id.user_info_username_edit);
         user_info_pw_edit=(Button) findViewById(R.id.user_info_pw_edit);
         user_info_phone=(TextView) findViewById(R.id.user_info_phone);
-        user_info_phone.setText(SharedData.student.getPhone());
         user_info_phone_edit=(Button) findViewById(R.id.user_info_phone_edit);
         user_info_logout=(Button) findViewById(R.id.user_info_logout);
+        if(SharedData.identity==1){
+            user_info_id.setText(SharedData.student.getId());
+            user_info_identity.setText("学生");
+            user_info_username.setText(SharedData.student.getUsername());
+            user_info_phone.setText(SharedData.student.getPhone());
+        }
+        else{
+            user_info_id.setText(SharedData.teacher.getId());
+            user_info_identity.setText("教师");
+            user_info_username.setText(SharedData.teacher.getUsername());
+            user_info_phone.setText(SharedData.teacher.getPhone());
+        }
         user_info_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedData.identity=0;
+                SharedData.teacher=null;
                 SharedData.student=null;
                 SharedData.courseList=null;
                 Intent intent=new Intent(UserInfo_activity.this,Entrance_activity.class);
@@ -103,7 +112,14 @@ public class UserInfo_activity extends AppCompatActivity {
                                 final ProgressDialog changing=ProgressDialog.show(view.getContext(),
                                         "修改中", "请等待", true, false);
                                 ChangeInfoReq req = new ChangeInfoReq();
-                                req.setStudent_id(SharedData.student.getId());
+                                if(SharedData.identity==1) {
+                                    req.setIdentity(1);
+                                    req.setId(SharedData.student.getId());
+                                }
+                                else{
+                                    req.setIdentity(2);
+                                    req.setId(SharedData.teacher.getId());
+                                }
                                 req.setChangeItem(newUsername);
 
                                 Gson gson = new Gson();
@@ -116,8 +132,11 @@ public class UserInfo_activity extends AppCompatActivity {
                                         changing.dismiss();
                                         if (response.raw().code() == 200) {
                                             if (response.body().errno == 0) {
-                                                SharedData.student.setUsername(response.body().data);
-                                                user_info_username.setText(SharedData.student.getUsername());
+                                                if(SharedData.identity==1)
+                                                    SharedData.student.setUsername(response.body().data);
+                                                else
+                                                    SharedData.teacher.setUsername(response.body().data);
+                                                user_info_username.setText(response.body().data);
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();
@@ -164,7 +183,12 @@ public class UserInfo_activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         final String originalPw=get_original_pw.getText().toString();
                         final String newPw=get_new_pw.getText().toString();
-                        if(!originalPw.equals(SharedData.student.getPassword())){
+                        String pw;
+                        if(SharedData.identity==1)
+                            pw=SharedData.student.getPassword();
+                        else
+                            pw=SharedData.teacher.getPassword();
+                        if(!originalPw.equals(pw)){
                             Toast.makeText(view.getContext(),"原密码错误",Toast.LENGTH_SHORT).show();
                         }else{
                             if(newPw==null||newPw.length()<=0){
@@ -176,7 +200,14 @@ public class UserInfo_activity extends AppCompatActivity {
                                     final ProgressDialog changing=ProgressDialog.show(view.getContext(),
                                             "修改中", "请等待", true, false);
                                     ChangeInfoReq req = new ChangeInfoReq();
-                                    req.setStudent_id(SharedData.student.getId());
+                                    if(SharedData.identity==1) {
+                                        req.setId(SharedData.student.getId());
+                                        req.setIdentity(1);
+                                    }
+                                    else{
+                                        req.setId(SharedData.teacher.getId());
+                                        req.setIdentity(2);
+                                    }
                                     req.setChangeItem(newPw);
 
                                     Gson gson = new Gson();
@@ -189,7 +220,10 @@ public class UserInfo_activity extends AppCompatActivity {
                                             changing.dismiss();
                                             if(response.raw().code()==200){
                                                 if(response.body().errno==0){
-                                                    SharedData.student.setPassword(newPw);
+                                                    if(SharedData.identity==1)
+                                                        SharedData.student.setPassword(newPw);
+                                                    else
+                                                        SharedData.teacher.setPassword(newPw);
                                                     Toast.makeText(view.getContext(),response.body().msg,Toast.LENGTH_SHORT).show();
                                                 }else{
                                                     Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();
@@ -243,7 +277,14 @@ public class UserInfo_activity extends AppCompatActivity {
                                 final ProgressDialog changing=ProgressDialog.show(view.getContext(),
                                         "修改中", "请等待", true, false);
                                 ChangeInfoReq req = new ChangeInfoReq();
-                                req.setStudent_id(SharedData.student.getId());
+                                if(SharedData.identity==1) {
+                                    req.setIdentity(1);
+                                    req.setId(SharedData.student.getId());
+                                }
+                                else{
+                                    req.setIdentity(2);
+                                    req.setId(SharedData.teacher.getId());
+                                }
                                 req.setChangeItem(newPhone);
 
                                 Gson gson = new Gson();
@@ -256,8 +297,11 @@ public class UserInfo_activity extends AppCompatActivity {
                                         changing.dismiss();
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){
-                                                SharedData.student.setPhone(newPhone);
-                                                user_info_phone.setText(SharedData.student.getPhone());
+                                                if(SharedData.identity==1)
+                                                    SharedData.student.setPhone(newPhone);
+                                                else
+                                                    SharedData.teacher.setPhone(newPhone);
+                                                user_info_phone.setText(newPhone);
                                                 Toast.makeText(view.getContext(),response.body().msg,Toast.LENGTH_SHORT).show();
                                             }else{
                                                 Toast.makeText(view.getContext(), response.body().msg, Toast.LENGTH_SHORT).show();

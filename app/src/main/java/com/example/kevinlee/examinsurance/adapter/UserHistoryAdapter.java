@@ -53,7 +53,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.user_history_unit,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.unit_student_history,parent,false);
         final ViewHolder holder=new ViewHolder(view);
         holder.order_action.setOnClickListener(new View.OnClickListener() {
             @Override

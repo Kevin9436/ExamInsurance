@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 
 public class Entrance_activity extends AppCompatActivity {
     TextView title;
@@ -19,7 +18,7 @@ public class Entrance_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.entrance_layout);
+        setContentView(R.layout.layout_entrance);
 
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
@@ -36,6 +35,7 @@ public class Entrance_activity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent(Entrance_activity.this, Login_activity.class);
                 startActivity(intent);
+                finish();
             }
         });
         register.setOnClickListener(new View.OnClickListener(){

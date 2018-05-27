@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/user_title"/>
+    <!--标题栏-->
+    <include layout="@layout/title_user" />
+    <!--用户界面列表-->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/user_history_list"
+        android:id="@+id/student_page_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

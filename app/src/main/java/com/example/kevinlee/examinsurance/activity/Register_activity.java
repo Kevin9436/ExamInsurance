@@ -17,13 +17,11 @@ import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.connectServer.bean.RegisterReq;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.model.Student;
+import com.example.kevinlee.examinsurance.model.Teacher;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -45,7 +43,7 @@ public class Register_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_layout);
+        setContentView(R.layout.layout_register);
 
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
@@ -92,16 +90,17 @@ public class Register_activity extends AppCompatActivity {
         registering = ProgressDialog.show(Register_activity.this,
                     "注册中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Register_activity.this)){
+            Gson gson=new Gson();
+            String route=gson.toJson(req);
+            RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
             if(req.getIdentity()==1){
-                Gson gson=new Gson();
-                String route=gson.toJson(req);
-                RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
-                Call<BasicCallModel<Student>> cb=RequestBuilder.buildRequest().registerReq(body);
+                Call<BasicCallModel<Student>> cb=RequestBuilder.buildRequest().studentRegisterReq(body);
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
                         if(response.raw().code()==200){
                             if(response.body().errno==0){
+                                SharedData.identity=1;
                                 SharedData.student=response.body().data;
                                 SharedData.getCourseList(Register_activity.this);
                                 registering.dismiss();
@@ -130,9 +129,38 @@ public class Register_activity extends AppCompatActivity {
                 });
             }
             else{
-                //没有jaccount功能因此教师功能暂时不开放，防止乱注册
-                registering.dismiss();
-                Toast.makeText(Register_activity.this,"抱歉教师功能未开放",Toast.LENGTH_SHORT).show();
+                Call<BasicCallModel<Teacher>> cb=RequestBuilder.buildRequest().teacherRegisterReq(body);
+                cb.enqueue(new Callback<BasicCallModel<Teacher>>() {
+                    @Override
+                    public void onResponse(Call<BasicCallModel<Teacher>> call, Response<BasicCallModel<Teacher>> response) {
+                        if(response.raw().code()==200){
+                            if(response.body().errno==0){
+                                SharedData.identity=2;
+                                SharedData.teacher=response.body().data;
+                                registering.dismiss();
+                                Toast.makeText(Register_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(Register_activity.this,TeacherPage_activity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else{
+                                registering.dismiss();
+                                Toast.makeText(Register_activity.this,response.body().msg,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else{
+                            registering.dismiss();
+                            Toast.makeText(Register_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        }
+                        RequestBuilder.clear();
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicCallModel<Teacher>> call, Throwable t) {
+                        registering.dismiss();
+                        Toast.makeText(Register_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }
         else{

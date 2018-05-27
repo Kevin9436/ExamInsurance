@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.adapter.CourseAdapter;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class ShopPage_activity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class ShopPage_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shop_page_layout);
+        setContentView(R.layout.layout_shop_page);
         getSupportActionBar().hide();
         shop_page_user=(Button) findViewById(R.id.shop_page_user);
         shop_page_logout=(Button) findViewById(R.id.shop_page_logout);
@@ -38,7 +37,7 @@ public class ShopPage_activity extends AppCompatActivity {
         shop_page_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ShopPage_activity.this,UserPage_activity.class);
+                Intent intent=new Intent(ShopPage_activity.this,StudentPage_activity.class);
                 startActivity(intent);
             }
         });
@@ -46,6 +45,7 @@ public class ShopPage_activity extends AppCompatActivity {
         shop_page_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedData.identity=0;
                 SharedData.student=null;
                 SharedData.courseList=null;
                 Intent intent=new Intent(ShopPage_activity.this,Entrance_activity.class);

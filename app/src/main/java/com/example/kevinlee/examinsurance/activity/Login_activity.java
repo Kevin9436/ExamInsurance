@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,8 +17,8 @@ import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.connectServer.bean.LoginReq;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.model.Student;
+import com.example.kevinlee.examinsurance.model.Teacher;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.orhanobut.logger.Logger;
@@ -41,7 +40,7 @@ public class Login_activity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
+        setContentView(R.layout.layout_login);
 
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
@@ -83,13 +82,14 @@ public class Login_activity extends AppCompatActivity{
                 "注册中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Login_activity.this)){
             if(req.getIdentity()==1){
-                Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().loginReq(req.getId(),req.getPw());
+                Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().studentLoginReq(req.getId(),req.getPw());
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
                         if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
                             if (response.body().errno == 0) {
+                                SharedData.identity=1;
                                 SharedData.student = response.body().data;
                                 SharedData.getCourseList(Login_activity.this);
                                 logining.dismiss();
@@ -98,7 +98,6 @@ public class Login_activity extends AppCompatActivity{
                                 startActivity(intent);
                                 finish();
                             }
-                            //账号或密码错误
                             else {
                                 logining.dismiss();
                                 Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
@@ -119,9 +118,39 @@ public class Login_activity extends AppCompatActivity{
                 });
             }
             else{
-                //没有jaccount功能因此教师功能暂时不开放，防止乱注册
-                logining.dismiss();
-                Toast.makeText(Login_activity.this,"抱歉教师功能未开放",Toast.LENGTH_SHORT).show();
+                Call<BasicCallModel<Teacher>> cb=RequestBuilder.buildRequest().teacherLoginReq(req.getId(),req.getPw());
+                cb.enqueue(new Callback<BasicCallModel<Teacher>>() {
+                    @Override
+                    public void onResponse(Call<BasicCallModel<Teacher>> call, Response<BasicCallModel<Teacher>> response) {
+                        if(response.raw().code()==200) {
+                            //登录成功,准备用户以及课程列表数据
+                            if (response.body().errno == 0) {
+                                SharedData.identity=2;
+                                SharedData.teacher = response.body().data;
+                                logining.dismiss();
+                                Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Login_activity.this, TeacherPage_activity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+                                logining.dismiss();
+                                Toast.makeText(Login_activity.this, response.body().msg, Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            logining.dismiss();
+                            Toast.makeText(Login_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        }
+                        RequestBuilder.clear();
+                    }
+
+                    @Override
+                    public void onFailure(Call<BasicCallModel<Teacher>> call, Throwable t) {
+                        logining.dismiss();
+                        Toast.makeText(Login_activity.this,"请求失败",Toast.LENGTH_SHORT).show();
+                        Logger.d(t);
+                    }
+                });
             }
         }
         else{

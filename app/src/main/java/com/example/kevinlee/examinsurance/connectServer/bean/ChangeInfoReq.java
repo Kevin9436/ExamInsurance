@@ -5,11 +5,14 @@ package com.example.kevinlee.examinsurance.connectServer.bean;
  */
 
 public class ChangeInfoReq {
-    private String student_id;
+    private int identity;
+    private String id;
     private String changeItem;
 
-    public String getStudent_id(){return student_id;}
-    public void setStudent_id(String id){student_id=id;}
+    public int getIdentity(){return identity;}
+    public void setIdentity(int _identity){identity=_identity;}
+    public String getStudent_id(){return id;}
+    public void setId(String _id){id=_id;}
     public String getChangeItem(){return changeItem;}
     public void setChangeItem(String item){changeItem=item;}
 }

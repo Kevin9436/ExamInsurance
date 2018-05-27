@@ -11,17 +11,16 @@ import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
 import com.example.kevinlee.examinsurance.adapter.UserHistoryAdapter;
-import com.example.kevinlee.examinsurance.model.BasicActivity;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
-public class UserHistory_activity extends AppCompatActivity {
+public class StudentHistory_activity extends AppCompatActivity {
     TextView title;
     Button back;
     RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_history_layout);
+        setContentView(R.layout.layout_student_history);
         ActionBar actionBar=getSupportActionBar();
         if(actionBar!=null){
             actionBar.hide();

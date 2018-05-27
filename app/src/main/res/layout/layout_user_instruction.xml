@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/user_title"/>
+    <include layout="@layout/title_user"/>
     <TextView
         android:id="@+id/user_instruction"
         android:layout_width="match_parent"

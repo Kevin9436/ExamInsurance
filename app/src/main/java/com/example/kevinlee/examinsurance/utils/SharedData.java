@@ -7,6 +7,7 @@ import com.example.kevinlee.examinsurance.connectServer.api.RequestBuilder;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.model.Course;
 import com.example.kevinlee.examinsurance.model.Student;
+import com.example.kevinlee.examinsurance.model.Teacher;
 
 import java.util.List;
 
@@ -19,7 +20,9 @@ import retrofit2.Response;
  */
 
 public class SharedData {
+    public static int identity;//1 student, 2 teacher
     public static Student student;
+    public static Teacher teacher;
     public static List<Course> courseList;
 
     public static void getCourseList(final Context context){

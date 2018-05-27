@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
-import com.example.kevinlee.examinsurance.activity.UserAccount_activity;
-import com.example.kevinlee.examinsurance.activity.UserHistory_activity;
+import com.example.kevinlee.examinsurance.activity.StudentAccount_activity;
+import com.example.kevinlee.examinsurance.activity.StudentHistory_activity;
 import com.example.kevinlee.examinsurance.activity.UserInfo_activity;
 import com.example.kevinlee.examinsurance.activity.UserInstruction_activity;
 
@@ -17,7 +17,7 @@ import com.example.kevinlee.examinsurance.activity.UserInstruction_activity;
  * Created by Kevin Lee on 2018/5/13.
  */
 
-public class UserPageColumnAdapter extends RecyclerView.Adapter<UserPageColumnAdapter.ViewHolder> {
+public class StudentPageColumnAdapter extends RecyclerView.Adapter<StudentPageColumnAdapter.ViewHolder> {
     private final String[] text_column=new String[]{
             "个人信息",
             "账户余额",
@@ -37,7 +37,7 @@ public class UserPageColumnAdapter extends RecyclerView.Adapter<UserPageColumnAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.user_page_list_unit,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.unit_user_page_list,parent,false);
         final ViewHolder holder = new ViewHolder(view);
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,11 +49,11 @@ public class UserPageColumnAdapter extends RecyclerView.Adapter<UserPageColumnAd
                         v.getContext().startActivity(info_intent);
                         break;
                     case 1:
-                        Intent account_intent = new Intent(v.getContext(),UserAccount_activity.class);
+                        Intent account_intent = new Intent(v.getContext(),StudentAccount_activity.class);
                         v.getContext().startActivity(account_intent);
                         break;
                     case 2:
-                        Intent history_intent = new Intent(v.getContext(),UserHistory_activity.class);
+                        Intent history_intent = new Intent(v.getContext(),StudentHistory_activity.class);
                         v.getContext().startActivity(history_intent);
                         break;
                     case 3:

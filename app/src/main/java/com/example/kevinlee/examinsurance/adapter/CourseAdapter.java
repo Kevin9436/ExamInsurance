@@ -22,7 +22,6 @@ import com.example.kevinlee.examinsurance.model.Order;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.course_unit,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.unit_course,parent,false);
         final ViewHolder holder=new ViewHolder(view);
         holder.course_purchase.setOnClickListener(new View.OnClickListener() {
             @Override

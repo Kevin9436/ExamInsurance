@@ -19,6 +19,7 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,12 +33,22 @@
             android:name=".activity.ShopPage_activity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".activity.UserPage_activity"
+            android:name=".activity.StudentPage_activity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.UserInfo_activity" />
-        <activity android:name=".activity.UserAccount_activity" />
-        <activity android:name=".activity.UserHistory_activity" />
-        <activity android:name=".activity.UserInstruction_activity"/>
+        <activity
+            android:name=".activity.UserInfo_activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.StudentAccount_activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.StudentHistory_activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.UserInstruction_activity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.TeacherPage_activity" />
+        <activity android:name=".activity.TeachCourse_activity"></activity>
     </application>
 
 </manifest>
