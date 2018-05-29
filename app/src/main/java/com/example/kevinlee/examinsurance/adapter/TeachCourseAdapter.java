@@ -90,6 +90,7 @@ public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             dialogInterface.cancel();
                         }
                     });
+                    upload_file.show();
                 }
             });
         }

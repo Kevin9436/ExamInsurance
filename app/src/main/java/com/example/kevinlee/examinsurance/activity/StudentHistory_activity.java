@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
-import com.example.kevinlee.examinsurance.adapter.UserHistoryAdapter;
+import com.example.kevinlee.examinsurance.adapter.StudentHistoryAdapter;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 
 public class StudentHistory_activity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class StudentHistory_activity extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.user_history_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        UserHistoryAdapter adapter=new UserHistoryAdapter(SharedData.student.getHistory());
+        StudentHistoryAdapter adapter=new StudentHistoryAdapter(SharedData.student.getHistory());
         recyclerView.setAdapter(adapter);
     }
 }

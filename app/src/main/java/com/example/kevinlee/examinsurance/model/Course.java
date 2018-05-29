@@ -18,5 +18,4 @@ public class Course {
     public void setUpper_threshold(int upper){this.upper_threshold=upper;}
     public int getLower_threshold(){return this.lower_threshold;}
     public void setLower_threshold(int lower){this.lower_threshold=lower;}
-
 }

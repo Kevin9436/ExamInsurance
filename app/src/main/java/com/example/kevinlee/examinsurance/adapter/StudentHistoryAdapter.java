@@ -33,7 +33,7 @@ import retrofit2.Response;
  * Created by Kevin Lee on 2018/5/15.
  */
 
-public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.ViewHolder>{
+public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAdapter.ViewHolder>{
     private List<Order> orderList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -48,7 +48,7 @@ public class UserHistoryAdapter extends RecyclerView.Adapter<UserHistoryAdapter.
         }
     }
 
-    public UserHistoryAdapter(List<Order> _orderList){
+    public StudentHistoryAdapter(List<Order> _orderList){
         orderList=_orderList;
     }
     @Override
