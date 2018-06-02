@@ -21,6 +21,7 @@ import com.example.kevinlee.examinsurance.model.Order;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -118,9 +119,12 @@ public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAd
                     String route=gson.toJson(req);
                     RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                     Call<BasicCallModel<ApplyRes>> cb = RequestBuilder.buildRequest().applyReq(body);
+                    final long starttime=System.nanoTime();
                     cb.enqueue(new Callback<BasicCallModel<ApplyRes>>() {
                         @Override
                         public void onResponse(Call<BasicCallModel<ApplyRes>> call, Response<BasicCallModel<ApplyRes>> response) {
+                            long timeconsume=System.nanoTime()-starttime;
+                            Logger.d("apply for compensation consume "+timeconsume/1000+" us");
                             if(response.raw().code()==200){
                                 if(response.body().errno==0){
                                     String courseId=response.body().data.getCourseId();

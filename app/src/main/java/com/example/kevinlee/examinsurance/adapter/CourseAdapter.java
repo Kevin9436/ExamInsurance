@@ -22,6 +22,7 @@ import com.example.kevinlee.examinsurance.model.Order;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -163,9 +164,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                             String route = gson.toJson(req);
                             RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                             Call<BasicCallModel<Order>> cb = RequestBuilder.buildRequest().purchaseReq(body);
+                            final long starttime=System.nanoTime();
                             cb.enqueue(new Callback<BasicCallModel<Order>>() {
                                 @Override
                                 public void onResponse(Call<BasicCallModel<Order>> call, Response<BasicCallModel<Order>> response) {
+                                    long timeconsume=System.nanoTime()-starttime;
+                                    Logger.d("make purchase consume "+timeconsume/1000+" us");
                                     if (response.raw().code() == 200) {
                                         if (response.body().errno == 0) {
                                             purchasing.dismiss();

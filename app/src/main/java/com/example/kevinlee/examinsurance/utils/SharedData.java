@@ -8,6 +8,7 @@ import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
 import com.example.kevinlee.examinsurance.model.Course;
 import com.example.kevinlee.examinsurance.model.Student;
 import com.example.kevinlee.examinsurance.model.Teacher;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -27,9 +28,12 @@ public class SharedData {
 
     public static void getCourseList(final Context context){
         Call<BasicCallModel<List<Course>>> cb= RequestBuilder.buildRequest().courselistReq();
+        final long starttime=System.nanoTime();
         cb.enqueue(new Callback<BasicCallModel<List<Course>>>() {
             @Override
             public void onResponse(Call<BasicCallModel<List<Course>>> call, Response<BasicCallModel<List<Course>>> response) {
+                long timeconsume=System.nanoTime()-starttime;
+                Logger.d("get course list consume "+timeconsume/1000+" us");
                 if(response.raw().code()==200){
                     if(response.body().data!=null){
                         courseList=response.body().data;

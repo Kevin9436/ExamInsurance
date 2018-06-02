@@ -21,6 +21,7 @@ import com.example.kevinlee.examinsurance.connectServer.bean.ChangeInfoReq;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import okhttp3.RequestBody;
 import retrofit2.Callback;
@@ -126,9 +127,12 @@ public class UserInfo_activity extends AppCompatActivity {
                                 String route = gson.toJson(req);
                                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                                 Call<BasicCallModel<String>> cb = RequestBuilder.buildRequest().changeUsernameReq(body);
+                                final long starttime=System.nanoTime();
                                 cb.enqueue(new Callback<BasicCallModel<String>>() {
                                     @Override
                                     public void onResponse(Call<BasicCallModel<String>> call, Response<BasicCallModel<String>> response) {
+                                        long timeconsume=System.nanoTime()-starttime;
+                                        Logger.d("change username consume "+timeconsume/1000+" us");
                                         changing.dismiss();
                                         if (response.raw().code() == 200) {
                                             if (response.body().errno == 0) {
@@ -214,9 +218,12 @@ public class UserInfo_activity extends AppCompatActivity {
                                     String route = gson.toJson(req);
                                     RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                                     Call<BasicCallModel<String>> cb = RequestBuilder.buildRequest().changePasswordReq(body);
+                                    final long starttime=System.nanoTime();
                                     cb.enqueue(new Callback<BasicCallModel<String>>() {
                                         @Override
                                         public void onResponse(Call<BasicCallModel<String>> call, Response<BasicCallModel<String>> response) {
+                                            long timeconsume=System.nanoTime()-starttime;
+                                            Logger.d("change password consume "+timeconsume/1000+" us");
                                             changing.dismiss();
                                             if(response.raw().code()==200){
                                                 if(response.body().errno==0){
@@ -291,9 +298,12 @@ public class UserInfo_activity extends AppCompatActivity {
                                 String route = gson.toJson(req);
                                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                                 Call<BasicCallModel<String>> cb = RequestBuilder.buildRequest().changePhoneReq(body);
+                                final long starttime=System.nanoTime();
                                 cb.enqueue(new Callback<BasicCallModel<String>>() {
                                     @Override
                                     public void onResponse(Call<BasicCallModel<String>> call, Response<BasicCallModel<String>> response) {
+                                        long timeconsume=System.nanoTime()-starttime;
+                                        Logger.d("change phone consume "+timeconsume/1000+" us");
                                         changing.dismiss();
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){

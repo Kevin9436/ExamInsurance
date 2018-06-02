@@ -24,6 +24,7 @@ import com.example.kevinlee.examinsurance.model.Teaching;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -93,9 +94,12 @@ public class TeachCourse_activity extends AppCompatActivity {
                                 String route = gson.toJson(req);
                                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                                 Call<BasicCallModel<Teaching>> cb = RequestBuilder.buildRequest().addCourseReq(body);
+                                final long starttime=System.nanoTime();
                                 cb.enqueue(new Callback<BasicCallModel<Teaching>>() {
                                     @Override
                                     public void onResponse(Call<BasicCallModel<Teaching>> call, Response<BasicCallModel<Teaching>> response) {
+                                        long timeconsume=System.nanoTime()-starttime;
+                                        Logger.d("add course consume "+timeconsume/1000+" us");
                                         adding.dismiss();
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){

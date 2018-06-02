@@ -83,9 +83,12 @@ public class Login_activity extends AppCompatActivity{
         if(Netutils.isNetworkConnected(Login_activity.this)){
             if(req.getIdentity()==1){
                 Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().studentLoginReq(req.getId(),req.getPw());
+                final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
+                        long timeconsume=System.nanoTime()-starttime;
+                        Logger.d("login consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
                             if (response.body().errno == 0) {
@@ -119,9 +122,12 @@ public class Login_activity extends AppCompatActivity{
             }
             else{
                 Call<BasicCallModel<Teacher>> cb=RequestBuilder.buildRequest().teacherLoginReq(req.getId(),req.getPw());
+                final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Teacher>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Teacher>> call, Response<BasicCallModel<Teacher>> response) {
+                        long timeconsume=System.nanoTime()-starttime;
+                        Logger.d("login consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
                             if (response.body().errno == 0) {
