@@ -2,6 +2,7 @@ package com.example.kevinlee.examinsurance.connectServer.api;
 
 import com.example.kevinlee.examinsurance.connectServer.bean.ApplyRes;
 import com.example.kevinlee.examinsurance.connectServer.bean.BasicCallModel;
+import com.example.kevinlee.examinsurance.connectServer.bean.UploadReq;
 import com.example.kevinlee.examinsurance.model.Course;
 import com.example.kevinlee.examinsurance.model.Order;
 import com.example.kevinlee.examinsurance.model.Student;
@@ -10,12 +11,15 @@ import com.example.kevinlee.examinsurance.model.Teaching;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -65,7 +69,8 @@ public interface InterfaceManager {
     @POST("user/changePhone")
     Call<BasicCallModel<String>> changePhoneReq(@Body RequestBody body);
 
-    @Headers({"Content-type:application/json;charset=utf-8","Accept:application/json"})
+    @Multipart
     @POST("user/teacher/upload")
-    Call<BasicCallModel<String>> uploadReq(@Body RequestBody body);
+    Call<BasicCallModel<String>> uploadReq(@Part("info") RequestBody info,
+                                              @Part MultipartBody.Part file);
 }

@@ -1,7 +1,7 @@
 package com.example.kevinlee.examinsurance.adapter;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.kevinlee.examinsurance.R;
+import com.example.kevinlee.examinsurance.activity.TeacherUpload_activity;
 import com.example.kevinlee.examinsurance.model.Teaching;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Teaching> courseList;
+    private Context context;
     public enum ITEM_TYPE{
         INCOMPLETED,
         COMPLETED
@@ -43,8 +45,9 @@ public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public TeachCourseAdapter(List<Teaching> list){
+    public TeachCourseAdapter(List<Teaching> list,Context _context){
         courseList=list;
+        this.context=_context;
     }
 
     public int getItemViewType(int position) {
@@ -68,29 +71,16 @@ public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Teaching course=courseList.get(position);
+        final Teaching course=courseList.get(position);
         if(holder instanceof IncompletedViewHolder){
             ((IncompletedViewHolder) holder).course_info.setText(course.getCourse_id()+" "+course.getCourse_title());
             ((IncompletedViewHolder) holder).upload_action.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog.Builder upload_file=new AlertDialog.Builder(view.getContext());
-                    upload_file.setTitle("上传成绩单");
-                    upload_file.setMessage("选择文件...");
-                    upload_file.setCancelable(false);
-                    upload_file.setPositiveButton("上传", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-                    upload_file.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-                    upload_file.show();
+                    String course_id=course.getCourse_id();
+                    Intent intent=new Intent(view.getContext(), TeacherUpload_activity.class);
+                    intent.putExtra("course_id",course_id);
+                    context.startActivity(intent);
                 }
             });
         }

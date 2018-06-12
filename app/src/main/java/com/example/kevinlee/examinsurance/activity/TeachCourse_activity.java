@@ -56,7 +56,7 @@ public class TeachCourse_activity extends AppCompatActivity {
         recyclerView=(RecyclerView) findViewById(R.id.teach_course_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList());
+        TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList(),TeachCourse_activity.this);
         recyclerView.setAdapter(adapter);
         add_course=(Button) findViewById(R.id.add_course);
         add_course.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +105,7 @@ public class TeachCourse_activity extends AppCompatActivity {
                                             if(response.body().errno==0){
                                                 SharedData.teacher.add_course(response.body().data);
                                                 //更新对话框外部UI
-                                                TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList());
+                                                TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList(),TeachCourse_activity.this);
                                                 recyclerView.setAdapter(adapter);
                                                 Toast.makeText(view.getContext(),response.body().msg,Toast.LENGTH_SHORT).show();
                                             }else{

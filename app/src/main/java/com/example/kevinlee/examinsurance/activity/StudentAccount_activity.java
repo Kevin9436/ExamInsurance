@@ -39,7 +39,7 @@ public class StudentAccount_activity extends AppCompatActivity {
         charge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(StudentAccount_activity.this,"尚未开放",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(StudentAccount_activity.this,"尚未开放",Toast.LENGTH_SHORT).show();
             }
         });
     }

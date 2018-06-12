@@ -79,7 +79,7 @@ public class Login_activity extends AppCompatActivity{
 
     private void login_action(final LoginReq req){
         logining = ProgressDialog.show(Login_activity.this,
-                "注册中","请稍等...",true,false);
+                "登陆中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Login_activity.this)){
             if(req.getIdentity()==1){
                 Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().studentLoginReq(req.getId(),req.getPw());
