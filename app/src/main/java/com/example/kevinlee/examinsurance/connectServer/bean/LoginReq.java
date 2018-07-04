@@ -1,3 +1,6 @@
+/*
+    登录请求的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 /**

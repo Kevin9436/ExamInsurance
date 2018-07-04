@@ -1,3 +1,6 @@
+/*
+    应用全部活动共享的数据
+ */
 package com.example.kevinlee.examinsurance.utils;
 
 import android.content.Context;
@@ -26,14 +29,12 @@ public class SharedData {
     public static Teacher teacher;
     public static List<Course> courseList;
 
+    //从服务器获取课程列表
     public static void getCourseList(final Context context){
         Call<BasicCallModel<List<Course>>> cb= RequestBuilder.buildRequest().courselistReq();
-        final long starttime=System.nanoTime();
         cb.enqueue(new Callback<BasicCallModel<List<Course>>>() {
             @Override
             public void onResponse(Call<BasicCallModel<List<Course>>> call, Response<BasicCallModel<List<Course>>> response) {
-                long timeconsume=System.nanoTime()-starttime;
-                Logger.d("get course list consume "+timeconsume/1000+" us");
                 if(response.raw().code()==200){
                     if(response.body().data!=null){
                         courseList=response.body().data;

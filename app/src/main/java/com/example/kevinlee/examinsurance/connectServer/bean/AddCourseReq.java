@@ -1,3 +1,6 @@
+/*
+    教师添加课程请求的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 /**

@@ -1,3 +1,6 @@
+/*
+    学生账户栏目列表适配器：个人信息、账户余额、投保记录、使用说明
+ */
 package com.example.kevinlee.examinsurance.adapter;
 
 import android.content.Intent;

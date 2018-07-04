@@ -1,3 +1,6 @@
+/*
+    学生登录后的活动，显示商品，并且可跳转到个人信息活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -28,12 +31,14 @@ public class ShopPage_activity extends AppCompatActivity {
         shop_page_user=(Button) findViewById(R.id.shop_page_user);
         shop_page_logout=(Button) findViewById(R.id.shop_page_logout);
         shop_page_refresh=(Button) findViewById(R.id.shop_page_refresh);
+        //商品界面用了recycleView控件，控件定义在CourseAdapter文件中
         recyclerView=(RecyclerView) findViewById(R.id.course_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         CourseAdapter adapter=new CourseAdapter(SharedData.courseList);
         recyclerView.setAdapter(adapter);
 
+        //跳转到个人信息活动
         shop_page_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +47,7 @@ public class ShopPage_activity extends AppCompatActivity {
             }
         });
 
+        //登出，启动入口活动
         shop_page_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +60,7 @@ public class ShopPage_activity extends AppCompatActivity {
             }
         });
 
+        //调用SharedData中的getCourseList方法刷新课程列表
         shop_page_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

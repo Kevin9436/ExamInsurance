@@ -1,3 +1,6 @@
+/*
+    教师上传课程成绩单的活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -42,6 +45,7 @@ public class TeacherUpload_activity extends AppCompatActivity {
     ProgressDialog uploading;
     private static final int FILE_SELECT_CODE = 0;
 
+    //用来更新外部控件显示选择文件路径的handler
     Handler handler = new Handler(){
         public void handleMessage(Message msg){
             String path=(String) msg.obj;
@@ -90,6 +94,7 @@ public class TeacherUpload_activity extends AppCompatActivity {
         });
     }
 
+    //向handler传递信息，以便其更新UI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,6 +113,7 @@ public class TeacherUpload_activity extends AppCompatActivity {
         }
     }
 
+    //通过系统的文件管理器来浏览并选择文件
     private void choose_file(){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");//过滤文件类型（所有）
@@ -130,7 +136,8 @@ public class TeacherUpload_activity extends AppCompatActivity {
                 Toast.makeText(this,"无网络连接",Toast.LENGTH_SHORT).show();
             }
             else{
-                /*
+                //这里代码存在问题，服务器端收不到这里的请求，应该是安卓端问题。上传文件采用的是multipart的请求方式，可能是我的用法有问题。
+                //multipart中除了上传的表格文件之外还应该有教师ID和课程ID
                 File file = new File(path);
                 if(file.exists() && file.length()>0) {
                     uploading=ProgressDialog.show(this,"上传中","请稍等...",true,false);
@@ -172,15 +179,6 @@ public class TeacherUpload_activity extends AppCompatActivity {
                 else{
                     Toast.makeText(this,"文件不存在",Toast.LENGTH_SHORT).show();
                 }
-                */
-                uploading=ProgressDialog.show(TeacherUpload_activity.this,"上传中","请稍等...",true,false);
-                try {
-                    Thread.currentThread().sleep(1500);//阻断2秒
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                uploading.dismiss();
-                Toast.makeText(TeacherUpload_activity.this,"上传成功",Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -1,3 +1,6 @@
+/*
+    教授课程类
+ */
 package com.example.kevinlee.examinsurance.model;
 
 /**

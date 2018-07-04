@@ -1,3 +1,6 @@
+/*
+    文件工具类
+ */
 package com.example.kevinlee.examinsurance.utils;
 
 import android.content.Context;
@@ -9,6 +12,8 @@ import android.net.Uri;
  */
 
 public class FileUtils {
+
+    //获取文件路径
     public static String getPath(Context context, Uri uri) {
 
         if ("content".equalsIgnoreCase(uri.getScheme())) {

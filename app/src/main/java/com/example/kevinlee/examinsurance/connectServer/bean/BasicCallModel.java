@@ -1,3 +1,6 @@
+/*
+    对服务器响应进行统一封装，便于客户端识别
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 /**

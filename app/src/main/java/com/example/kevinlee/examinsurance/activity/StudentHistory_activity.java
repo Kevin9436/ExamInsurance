@@ -1,3 +1,6 @@
+/*
+    学生购买保险历史活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.os.Bundle;
@@ -34,6 +37,7 @@ public class StudentHistory_activity extends AppCompatActivity {
                 finish();
             }
         });
+        //保险历史用RecycleView控件，控件定义见StudentHistoryAdapter文件
         recyclerView=(RecyclerView) findViewById(R.id.user_history_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

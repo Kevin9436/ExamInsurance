@@ -1,3 +1,6 @@
+/*
+    学生个人信息活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.os.Bundle;
@@ -34,6 +37,8 @@ public class StudentPage_activity extends AppCompatActivity {
                 finish();
             }
         });
+        //当时脑子一抽就用了个RecycleView列表，实际能装得下，但是这样可以避免出现之后扩展更多功能装不下的情况
+        //控件定义见StudentPageColumnAdapter文件
         recyclerView=(RecyclerView) findViewById(R.id.student_page_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

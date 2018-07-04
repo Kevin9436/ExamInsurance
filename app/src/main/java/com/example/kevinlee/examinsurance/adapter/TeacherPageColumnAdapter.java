@@ -1,3 +1,6 @@
+/*
+    教师账户列表适配器：个人信息、教授课程、使用说明
+ */
 package com.example.kevinlee.examinsurance.adapter;
 
 import android.content.Intent;

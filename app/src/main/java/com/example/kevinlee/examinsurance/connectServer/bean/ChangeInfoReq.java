@@ -1,3 +1,6 @@
+/*
+    用户更改个人信息请求的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 /**

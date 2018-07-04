@@ -1,3 +1,6 @@
+/*
+    登录活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -81,17 +84,16 @@ public class Login_activity extends AppCompatActivity{
         logining = ProgressDialog.show(Login_activity.this,
                 "登陆中","请稍等...",true,false);
         if(Netutils.isNetworkConnected(Login_activity.this)){
+            //学生登录
             if(req.getIdentity()==1){
                 Call<BasicCallModel<Student>> cb= RequestBuilder.buildRequest().studentLoginReq(req.getId(),req.getPw());
-                final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
-                        long timeconsume=System.nanoTime()-starttime;
-                        Logger.d("login consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
                             if (response.body().errno == 0) {
+                                //存数据到SharedData
                                 SharedData.identity=1;
                                 SharedData.student = response.body().data;
                                 SharedData.getCourseList(Login_activity.this);
@@ -120,14 +122,13 @@ public class Login_activity extends AppCompatActivity{
                     }
                 });
             }
+            //老师登录
             else{
                 Call<BasicCallModel<Teacher>> cb=RequestBuilder.buildRequest().teacherLoginReq(req.getId(),req.getPw());
                 final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Teacher>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Teacher>> call, Response<BasicCallModel<Teacher>> response) {
-                        long timeconsume=System.nanoTime()-starttime;
-                        Logger.d("login consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200) {
                             //登录成功,准备用户以及课程列表数据
                             if (response.body().errno == 0) {
@@ -165,6 +166,7 @@ public class Login_activity extends AppCompatActivity{
         }
     }
 
+    //检查登录信息输入是否有效
     private boolean checkValid(int _identity,String _id,String _pw){
         if(_identity!=1&_identity!=2){
             Toast.makeText(Login_activity.this,"请输入身份",Toast.LENGTH_SHORT).show();

@@ -1,3 +1,6 @@
+/*
+    对所有网络请求接口的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.api;
 
 import com.example.kevinlee.examinsurance.connectServer.bean.ApplyRes;

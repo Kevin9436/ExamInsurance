@@ -1,3 +1,6 @@
+/*
+    教师教授课程列表适配器
+ */
 package com.example.kevinlee.examinsurance.adapter;
 
 import android.content.Context;
@@ -27,6 +30,7 @@ public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         COMPLETED
     }
 
+    //未上传过成绩单的课程的列表单元
     static class IncompletedViewHolder extends RecyclerView.ViewHolder{
         TextView course_info;
         Button upload_action;
@@ -37,6 +41,7 @@ public class TeachCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
+    //已上传成绩单的课程的列表单元
     static class CompletedViewHolder extends RecyclerView.ViewHolder{
         TextView course_info;
         public CompletedViewHolder(View view){

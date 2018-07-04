@@ -1,3 +1,6 @@
+/*
+    教师登录后的活动，显示教师账号信息列表
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.content.Intent;
@@ -40,6 +43,8 @@ public class TeacherPage_activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //和学生账号信息列表一样，控件定义见TeacherPageColumnAdapter文件
         recyclerView=(RecyclerView) findViewById(R.id.teacher_page_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

@@ -1,3 +1,6 @@
+/*
+    程序入口活动，选择进入注册或登录
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.content.Intent;

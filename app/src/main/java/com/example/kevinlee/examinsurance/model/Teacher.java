@@ -1,3 +1,6 @@
+/*
+    教师类
+ */
 package com.example.kevinlee.examinsurance.model;
 
 import java.util.ArrayList;

@@ -1,3 +1,6 @@
+/*
+    学生申诉结果响应的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 /**

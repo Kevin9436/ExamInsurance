@@ -1,3 +1,6 @@
+/*
+    学生购买保险请求的封装
+ */
 package com.example.kevinlee.examinsurance.connectServer.bean;
 
 import com.example.kevinlee.examinsurance.model.Order;

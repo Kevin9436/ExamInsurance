@@ -1,3 +1,6 @@
+/*
+    教师查看自己所教授课程活动，界面支持添加课程功能
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -53,26 +56,32 @@ public class TeachCourse_activity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //所授课程列表用RecycleView控件，控件定义见TeachCourseAdapter文件
         recyclerView=(RecyclerView) findViewById(R.id.teach_course_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList(),TeachCourse_activity.this);
         recyclerView.setAdapter(adapter);
+
+        //添加课程按钮
         add_course=(Button) findViewById(R.id.add_course);
         add_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 View v= LayoutInflater.from(TeachCourse_activity.this).inflate(R.layout.alertdialog_add_course,null);
+                //弹出对话框，让教师填写课程信息
                 final AlertDialog.Builder alert_add_course=new AlertDialog.Builder(TeachCourse_activity.this);
                 alert_add_course.setTitle("添加授课课程");
                 alert_add_course.setView(v);
                 alert_add_course.setCancelable(false);
                 final EditText id=(EditText) v.findViewById(R.id.get_course_id);
                 final EditText title=(EditText) v.findViewById(R.id.get_course_title);
-
+                //对话框的确认按键点击事件
                 alert_add_course.setPositiveButton("添加", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //获取教师输入的课程ID和title
                         String course_id=id.getText().toString();
                         String course_title=title.getText().toString();
                         if(course_id==null||course_id.length()<=0||course_title==null||course_title.length()<=0){
@@ -93,18 +102,16 @@ public class TeachCourse_activity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 String route = gson.toJson(req);
                                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
+                                //发送添加课程网络请求
                                 Call<BasicCallModel<Teaching>> cb = RequestBuilder.buildRequest().addCourseReq(body);
-                                final long starttime=System.nanoTime();
                                 cb.enqueue(new Callback<BasicCallModel<Teaching>>() {
                                     @Override
                                     public void onResponse(Call<BasicCallModel<Teaching>> call, Response<BasicCallModel<Teaching>> response) {
-                                        long timeconsume=System.nanoTime()-starttime;
-                                        Logger.d("add course consume "+timeconsume/1000+" us");
                                         adding.dismiss();
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){
                                                 SharedData.teacher.add_course(response.body().data);
-                                                //更新对话框外部UI
+                                                //添加成功后更新对话框外部的RecycleView列表
                                                 TeachCourseAdapter adapter=new TeachCourseAdapter(SharedData.teacher.getTeachingList(),TeachCourse_activity.this);
                                                 recyclerView.setAdapter(adapter);
                                                 Toast.makeText(view.getContext(),response.body().msg,Toast.LENGTH_SHORT).show();
@@ -126,6 +133,7 @@ public class TeachCourse_activity extends AppCompatActivity {
                         }
                     }
                 });
+                //对话框的取消按键点击事件
                 alert_add_course.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

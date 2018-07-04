@@ -1,3 +1,6 @@
+/*
+    注册活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -22,7 +25,6 @@ import com.example.kevinlee.examinsurance.model.Teacher;
 import com.example.kevinlee.examinsurance.utils.Netutils;
 import com.example.kevinlee.examinsurance.utils.SharedData;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -94,14 +96,12 @@ public class Register_activity extends AppCompatActivity {
             Gson gson=new Gson();
             String route=gson.toJson(req);
             RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
+            //学生注册
             if(req.getIdentity()==1){
                 Call<BasicCallModel<Student>> cb=RequestBuilder.buildRequest().studentRegisterReq(body);
-                final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Student>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Student>> call, Response<BasicCallModel<Student>> response) {
-                        long timeconsume=System.nanoTime()-starttime;
-                        Logger.d("register consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200){
                             if(response.body().errno==0){
                                 SharedData.identity=1;
@@ -132,14 +132,12 @@ public class Register_activity extends AppCompatActivity {
                     }
                 });
             }
+            //教师注册
             else{
                 Call<BasicCallModel<Teacher>> cb=RequestBuilder.buildRequest().teacherRegisterReq(body);
-                final long starttime=System.nanoTime();
                 cb.enqueue(new Callback<BasicCallModel<Teacher>>() {
                     @Override
                     public void onResponse(Call<BasicCallModel<Teacher>> call, Response<BasicCallModel<Teacher>> response) {
-                        long timeconsume=System.nanoTime()-starttime;
-                        Logger.d("register consume "+timeconsume/1000+" us");
                         if(response.raw().code()==200){
                             if(response.body().errno==0){
                                 SharedData.identity=2;

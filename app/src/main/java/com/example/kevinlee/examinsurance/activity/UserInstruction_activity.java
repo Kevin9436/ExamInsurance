@@ -1,3 +1,6 @@
+/*
+    显示用户指南的活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.os.Bundle;

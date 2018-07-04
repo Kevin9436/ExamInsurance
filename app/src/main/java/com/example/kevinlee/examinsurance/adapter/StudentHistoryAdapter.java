@@ -1,3 +1,6 @@
+/*
+    学生保险购买记录适配器
+ */
 package com.example.kevinlee.examinsurance.adapter;
 
 import android.app.AlertDialog;
@@ -52,6 +55,7 @@ public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAd
     public StudentHistoryAdapter(List<Order> _orderList){
         orderList=_orderList;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.unit_student_history,parent,false);
@@ -93,6 +97,7 @@ public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAd
             return orderList.size();
     }
 
+    //向后台申请赔付，返回学生课程成绩和奖励金额
     private void apply_action(final Context context, final int position){
         final Order order=orderList.get(position);
         final AlertDialog.Builder apply_dialog=new AlertDialog.Builder(context);
@@ -119,12 +124,9 @@ public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAd
                     String route=gson.toJson(req);
                     RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                     Call<BasicCallModel<ApplyRes>> cb = RequestBuilder.buildRequest().applyReq(body);
-                    final long starttime=System.nanoTime();
                     cb.enqueue(new Callback<BasicCallModel<ApplyRes>>() {
                         @Override
                         public void onResponse(Call<BasicCallModel<ApplyRes>> call, Response<BasicCallModel<ApplyRes>> response) {
-                            long timeconsume=System.nanoTime()-starttime;
-                            Logger.d("apply for compensation consume "+timeconsume/1000+" us");
                             if(response.raw().code()==200){
                                 if(response.body().errno==0){
                                     String courseId=response.body().data.getCourseId();
@@ -170,6 +172,7 @@ public class StudentHistoryAdapter extends RecyclerView.Adapter<StudentHistoryAd
         apply_dialog.show();
     }
 
+    //查看已申诉过的课程，直接从SharedData中获取数据
     private void check_action(Context context,int position){
         Order order=orderList.get(position);
         AlertDialog.Builder check_dialog=new AlertDialog.Builder(context);

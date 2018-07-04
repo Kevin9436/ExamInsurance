@@ -1,3 +1,6 @@
+/*
+    用户个人信息显示活动
+ */
 package com.example.kevinlee.examinsurance.activity;
 
 import android.app.ProgressDialog;
@@ -64,6 +67,8 @@ public class UserInfo_activity extends AppCompatActivity {
         user_info_phone=(TextView) findViewById(R.id.user_info_phone);
         user_info_phone_edit=(Button) findViewById(R.id.user_info_phone_edit);
         user_info_logout=(Button) findViewById(R.id.user_info_logout);
+
+        //判断用户身份
         if(SharedData.identity==1){
             user_info_id.setText(SharedData.student.getId());
             user_info_identity.setText("学生");
@@ -76,6 +81,8 @@ public class UserInfo_activity extends AppCompatActivity {
             user_info_username.setText(SharedData.teacher.getUsername());
             user_info_phone.setText(SharedData.teacher.getPhone());
         }
+
+        //用户登出
         user_info_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +96,7 @@ public class UserInfo_activity extends AppCompatActivity {
             }
         });
 
+        //更改用户名
         user_info_username_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -171,6 +179,7 @@ public class UserInfo_activity extends AppCompatActivity {
             }
         });
 
+        //更改用户密码
         user_info_pw_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -261,6 +270,8 @@ public class UserInfo_activity extends AppCompatActivity {
                 changePw.show();
             }
         });
+
+        //更改用户手机
         user_info_phone_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -298,12 +309,9 @@ public class UserInfo_activity extends AppCompatActivity {
                                 String route = gson.toJson(req);
                                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), route);
                                 Call<BasicCallModel<String>> cb = RequestBuilder.buildRequest().changePhoneReq(body);
-                                final long starttime=System.nanoTime();
                                 cb.enqueue(new Callback<BasicCallModel<String>>() {
                                     @Override
                                     public void onResponse(Call<BasicCallModel<String>> call, Response<BasicCallModel<String>> response) {
-                                        long timeconsume=System.nanoTime()-starttime;
-                                        Logger.d("change phone consume "+timeconsume/1000+" us");
                                         changing.dismiss();
                                         if(response.raw().code()==200){
                                             if(response.body().errno==0){

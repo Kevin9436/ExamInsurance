@@ -1,3 +1,6 @@
+/*
+    课程保险类
+ */
 package com.example.kevinlee.examinsurance.model;
 
 /**

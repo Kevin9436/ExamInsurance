@@ -1,3 +1,6 @@
+/*
+    自定义活动，本应用没有用到，但是这种方法可扩展性比较高
+ */
 package com.example.kevinlee.examinsurance.model;
 
 import android.os.Bundle;

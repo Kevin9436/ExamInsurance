@@ -1,3 +1,6 @@
+/*
+    课程保险列表适配器
+ */
 package com.example.kevinlee.examinsurance.adapter;
 
 import android.app.AlertDialog;
